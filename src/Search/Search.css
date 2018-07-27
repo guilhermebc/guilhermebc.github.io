@@ -1,0 +1,7 @@
+.wrapper-search-bar {
+  padding: 15px; }
+  .wrapper-search-bar label {
+    padding: 5px 0;
+    display: block; }
+  .wrapper-search-bar input {
+    width: 100%; }
