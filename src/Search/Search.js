@@ -16,10 +16,8 @@ class Search extends Component {
 		this.setState({
 			term: termValue,
 		});
-	}
 
-	getYTComponent(query) {
-		return <YoutubeAPI content={query}/>;
+		console.log("change", this.state.term);
 	}
 
 	render() {
@@ -28,14 +26,12 @@ class Search extends Component {
 				<label htmlFor="search_bar">Type something...</label>
 
 				<input type="text" 
-					name="search-bar" id="search_bar" 
-					value={this.state.term}
-					onChange={event => this.onInputChange(event.target.value)}
-					autoFocus/>
+				name="search-bar" id="search_bar" 
+				value={this.state.term}
+				onChange={event => this.onInputChange(event.target.value)}
+				autoFocus/>
 
-				<p>{this.state.term}</p>
-
-				<button>Get youtube videos</button>
+				<YoutubeAPI query={this.state.term}/>
 			</div>
 		);
 	}

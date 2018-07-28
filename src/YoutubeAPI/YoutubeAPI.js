@@ -7,32 +7,23 @@ const rootAPI = 'https://www.googleapis.com/youtube/v3/search';
 const numResults = 10;
 
 class YoutubeAPI extends Component {
-  
+
   constructor(props){
     super(props);
-
-    this.state = {
-      result:[],
-      content: '',
-    };
-
   }
 
-  onTypedChange(contentValue){
+  onTypedClick(){
 
-    this.setState({
-      content: contentValue
-    });
-
-    console.log(11, contentValue);
-
-    let requestURL = `${rootAPI}?key=${apiKEY}&part=snippet,id&q=${this.state.content}&order=date&maxResults=${numResults}`;
+    let requestURL = `${rootAPI}?key=${apiKEY}&part=snippet,id&q=${this.props.query}&order=date&maxResults=${numResults}`;
 
     fetch(requestURL)
       .then((response) => response.json())
       .then((responseJson) => {
-          const result = responseJson.items.map(obj => "https://www.youtube.com/embed/"+obj.id.videoId);
-          console.log('Searched Videos: ', result);
+          let result = responseJson.items.map(
+            obj => <ListItem listQuery={"https://www.youtube.com/embed/"+obj.id.videoId}/>
+          );
+          console.log("Result: ", result);
+          
       })
       .catch((error) => {
         console.error(error);
@@ -42,7 +33,9 @@ class YoutubeAPI extends Component {
   render() {
     return (
       <div>
-         <p>videos... {this.state.content}</p>
+        {/* onClick={this.onTypedClick(this.state.query)} */}
+          <button type="submit" onClick={this.onTypedClick.bind(this)}>Search</button>
+        {/* <ListItem onChange={} /> */}
       </div>
     );
   }

@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import './ListItem.css';
 
 class ListItem extends Component {
+
+  constructor(props){
+    super(props);
+  }
+
   render() {
     return (
-      <li className="list-item">List Item 0</li>
+      <li>{this.props.itemsQuery}</li>
     );
   }
 }
