@@ -12,11 +12,11 @@ const numResults = 10;
 class App extends Component {
   render() {
     return (
-      <div className="container">
-        <Header title="GB Youtube Search"/>
-        <Search rootAPI={rootAPI} apiKEY={apiKEY} numResults={numResults}/>
-
-        {/* <Search rootAPI={rootAPI} apiKEY={apiKEY} numResults={2}/> */}
+      <div>
+        <Header title="My YT Search"/>
+        <div className="container">
+          <Search rootAPI={rootAPI} apiKEY={apiKEY} numResults={numResults}/>
+        </div>
       </div>
     );
   }

@@ -3,4 +3,6 @@
   text-align: center; }
   .wrapper-list ul {
     list-style: none;
-    padding: 0; }
+    padding: 0;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333; }

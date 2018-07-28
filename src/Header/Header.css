@@ -1,8 +1,20 @@
 #header {
-  background-color: #222;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   padding: 20px;
-  color: white; }
-  #header .menu-header {
+  color: white;
+  background-color: #222; }
+  #header .menu h3 {
+    margin-top: 15px;
+    margin-bottom: 15px; }
+  #header .menu__title {
     text-align: center;
-    font-size: 24px;
-    text-transform: uppercase; }
+    text-transform: uppercase;
+    font-size: 32px; }
+  @media screen and (max-width: 414px) {
+    #header {
+      padding: 10px; }
+      #header .menu__title {
+        font-size: 24px; } }

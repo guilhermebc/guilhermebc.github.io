@@ -7,6 +7,8 @@ Olá, este é um repositório de estudos em React. Trata-se de uma SPA voltada p
 
 # Usage
 
+Requisitos: Certifique-se que você tenha instalado no seu ambiente o Node.js.
+
 ## Para instalação do projeto:
 
 ### `npm install`
@@ -21,7 +23,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-## Você também pode utilizar testes dos seus componentes:
+## Você também pode executar testes em seus componentes:
 
 ### `npm test`
 

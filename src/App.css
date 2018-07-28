@@ -1,30 +1,30 @@
-.App {
-  text-align: center; }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px; }
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white; }
-
-.App-title {
-  font-size: 1.5em; }
-
-.App-subtitle {
-  font-size: 1em; }
-
-.App-intro {
-  font-size: large; }
-
-.App-intro-2 {
-  font-size: large; }
+body {
+  padding-top: 101px; }
 
 .container {
-  max-width: 1600px;
+  max-width: 1440px;
   margin: 0 auto;
   padding-left: 15px;
   padding-right: 15px; }
+
+.btn {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  margin: 10px auto;
+  padding: 10px 35px;
+  background-color: #100;
+  color: #fff;
+  font-size: 20px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: gray;
+  border-radius: 6px; }
+  .btn.btn-small {
+    width: auto;
+    font-size: 16px;
+    padding: 10px 20px; }
+
+@media screen and (max-width: 414px) {
+  body {
+    padding-top: 74px; } }
