@@ -13,11 +13,12 @@ class Search extends Component {
 
 		this.state = {
 			results: [],
+			numPage: 1,
 			term: '',
-			reactRedirect: false,
 			labelInfo: '',
 			nextPageToken: '',
-			numPage: 1,
+			prevPageToken: '',
+			reactRedirect: false,
 			showResults: false
 		};
 		
@@ -35,33 +36,44 @@ class Search extends Component {
 
 		event.preventDefault();
 
-		let requestURL;
+		let requestURL = `${this.props.rootAPI}?key=${this.props.apiKEY}&part=snippet,id&q=${this.state.term.trim()}&order=date&type=video&maxResults=${this.props.numResults}`;
 
-		if(event.target.value !== "pagination"){
-			requestURL = `${this.props.rootAPI}?key=${this.props.apiKEY}&part=snippet,id&q=${this.state.term.trim()}&order=date&type=video&maxResults=${this.props.numResults}`;
-			this.setState({
-				numPage: 1,
-				showResults: false
-			});
-
-		} else {
-			requestURL = `${this.props.rootAPI}?key=${this.props.apiKEY}&part=snippet,id&q=${this.state.term.trim()}&order=date&type=video&maxResults=${this.props.numResults}&pageToken=${this.state.nextPageToken}`;
-			this.setState({
-				results: [],
-				numPage: this.state.numPage + 1
-			});
+		//Check is submit pagination
+		switch(event.target.value) {
+			case 'next-page':
+				requestURL = requestURL + `&pageToken=${this.state.nextPageToken}`;
+				this.setState({
+					results: [],
+					numPage: this.state.numPage + 1
+				});
+				break;
+			case 'prev-page':
+				requestURL = requestURL + `&pageToken=${this.state.prevPageToken}`;
+				this.setState({
+					results: [],
+					numPage: this.state.numPage - 1
+				});
+				break;
+			default:
+				this.setState({
+					numPage: 1,
+					showResults: false
+				});
+				break;
 		}
 
+		//Fetch videos
 		if(this.state.term.trim()){
 			fetch(requestURL)
 			.then((response) => response.json())
 			.then((responseJson) => {
 				
-				let result = responseJson.items.map((obj, index) => obj.id.videoId !== undefined ? <ListItem content={obj.id.videoId} key={index}/> : '');
+				let result = responseJson.items.map((obj, index) => obj.id.videoId !== undefined ? <ListItem title={obj.snippet.title} content={obj.id.videoId} key={index}/> : '');
 	
 				this.setState({
 					results: result,
 					nextPageToken: responseJson.nextPageToken,
+					prevPageToken: responseJson.prevPageToken,
 					reactRedirect: true,
 					showResults: true	
 				});
@@ -81,7 +93,7 @@ class Search extends Component {
 				console.error(error);
 	
 				this.setState({
-					labelInfo: 'Ocorreu um erro inesperado, tente novamente ou volte mais tarde.'
+					labelInfo: 'An unexpected error occurred, please try again, or check back later.'
 				});
 			});
 		}
@@ -116,7 +128,10 @@ class Search extends Component {
 					<List list={this.state.results}/>
 				</div>
 
-				{ this.state.showResults ? <button className="btn btn-small" onClick={this.submit} value="pagination">Next Page</button> : null }
+				<div className="wrapper-button">
+					{ this.state.showResults && this.state.numPage > 1 ? <button className="btn btn-small" onClick={this.submit} value="prev-page">Previous</button> : null }
+					{ this.state.showResults ? <button className="btn btn-small" onClick={this.submit} value="next-page">Next</button> : null }
+				</div>
 				
 			</div>
 		);

@@ -24,6 +24,7 @@ class ListItem extends Component {
     return (
       <li className="list-item">
         <YouTube
+          title={this.props.title}
           videoId={this.props.content}
           opts={opts}
           onReady={this._onReady}/>
