@@ -25,13 +25,11 @@ class YoutubeAPI extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
           
-          let result = responseJson.items.map((obj, index) => <ListItem content={"https://www.youtube.com/embed/"+obj.id.videoId} key={index} />);
-
+          let result = responseJson.items.map((obj, index) => <ListItem content={obj.id.videoId} key={index} />);
           this.setState({
             results: result
           });
 
-          console.log(this.state.results);
       })
       .catch((error) => {
         console.error(error);

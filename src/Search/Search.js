@@ -16,8 +16,6 @@ class Search extends Component {
 		this.setState({
 			term: termValue,
 		});
-
-		console.log("change", this.state.term);
 	}
 
 	render() {
@@ -31,7 +29,7 @@ class Search extends Component {
 				onChange={event => this.onInputChange(event.target.value)}
 				autoFocus/>
 
-				<YoutubeAPI query={this.state.term}/>
+				<YoutubeAPI   query={this.state.term}/>
 			</div>
 		);
 	}

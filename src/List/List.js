@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import './List.css';
 
-import ListItem from '../ListItem/ListItem';
-
 class List extends Component {
-
-  constructor(props){
-    super(props);
-
-  }
 
   render() {
     return (
@@ -19,6 +12,7 @@ class List extends Component {
 	  </div>
     );
   }
+  
 }
 
 export default List;

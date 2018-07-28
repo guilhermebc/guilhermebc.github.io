@@ -1,3 +1,6 @@
 .wrapper-list {
-  padding: 15px;
-  background-color: #c3c3c3; }
+  width: 100%;
+  text-align: center; }
+  .wrapper-list ul {
+    list-style: none;
+    padding: 0; }
