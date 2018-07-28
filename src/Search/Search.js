@@ -128,6 +128,8 @@ class Search extends Component {
 					<List list={this.state.results}/>
 				</div>
 
+				<p className="label-info">{this.state.labelInfo}</p>
+
 				<div className="wrapper-button">
 					{ this.state.showResults && this.state.numPage > 1 ? <button className="btn btn-small" onClick={this.submit} value="prev-page">Previous</button> : null }
 					{ this.state.showResults ? <button className="btn btn-small" onClick={this.submit} value="next-page">Next</button> : null }
