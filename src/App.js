@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import 'react-bootstrap';
+
 import './App.css';
+
 import Header from './Header/Header';
 import Search from './Search/Search';
 
