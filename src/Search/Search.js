@@ -6,10 +6,6 @@ import './Search.css';
 import List from '../List/List';
 import ListItem from '../ListItem/ListItem';
 
-const apiKEY = 'AIzaSyD6VsQOvaQ0PGeLPAV4l7Ym1CbNtZmSZOQ';
-const rootAPI = 'https://www.googleapis.com/youtube/v3/search';
-const numResults = 10;
-
 class Search extends Component {
 
 	constructor(props) {
@@ -19,7 +15,9 @@ class Search extends Component {
 			results: [],
 			term: '',
 			fireRedirect: false,
-			labelInfo: ''
+			labelInfo: '',
+			nextPageToken: '',
+			numPage: 1
 		};
 		
 		this.onInputChange = this.onInputChange.bind(this);
@@ -34,36 +32,53 @@ class Search extends Component {
 
 	submit(event){
 
-		event.preventDefault()
+		event.preventDefault();
 
-		let requestURL = `${rootAPI}?key=${apiKEY}&part=snippet,id&q=${this.state.term}&order=date&maxResults=${numResults}`;
+		let requestURL;
+
+		if(event.target.value !== "pagination"){
+
+			requestURL = `${this.props.rootAPI}?key=${this.props.apiKEY}&part=snippet,id&q=${this.state.term}&order=date&maxResults=${this.props.numResults}`;
+			
+			this.setState({numPage: 1});
+
+		} else {
+			requestURL = `${this.props.rootAPI}?key=${this.props.apiKEY}&part=snippet,id&q=${this.state.term}&order=date&maxResults=${this.props.numResults}&pageToken=${this.state.nextPageToken}`;
+			this.setState({
+				results: [],
+				numPage: this.state.numPage + 1
+			});
+		}
 
 		fetch(requestURL)
 		.then((response) => response.json())
 		.then((responseJson) => {
 			
-			let result = responseJson.items.map((obj, index) => <ListItem content={obj.id.videoId} key={index} />);
+			let result = responseJson.items.map((obj, index) => obj.id.videoId !== undefined ? <ListItem content={obj.id.videoId} key={index}/> : '');
 
 			this.setState({
 				results: result,
-				fireRedirect: true
+				fireRedirect: true,
+				nextPageToken: responseJson.nextPageToken,
 			});
 
 			if(this.state.results.length > 0) {
 				this.setState({
-					labelInfo: result.length + ` vídeo(s) sobre ${this.state.term} encontrados.`
+					labelInfo: `pagina ${this.state.numPage} : ${result.length} vídeo(s) sobre ${this.state.term} encontrados.`
 				})
 			} else {
 				this.setState({
 					labelInfo: 'Nenhum vídeo encontrado.'
 				})
 			}
-			
-			console.log(this.state.results);
 
 		})
 		.catch((error) => {
 			console.error(error);
+
+			this.setState({
+				labelInfo: 'Ocorreu um erro inesperado, tente novamente ou volte mais tarde.'
+			})
 
 		});
 
@@ -76,7 +91,6 @@ class Search extends Component {
 		
 		return (
 			<div>
-
 				<div className="wrapper-search-bar">
 					<form onSubmit={this.submit}>
 						<label htmlFor="search_bar">Type something...</label>
@@ -87,10 +101,12 @@ class Search extends Component {
 							onChange={this.onInputChange}
 							autoFocus
 						/>
-						<button type="submit" >Search</button>
+						<button type="submit">Search</button>
 					</form>
 					{fireRedirect && (<Redirect to={from || '/results'}/>	)}
 				</div>
+
+				<button onClick={this.submit} value="pagination">More results</button>
 
 				<label>{this.state.labelInfo}</label>
 
