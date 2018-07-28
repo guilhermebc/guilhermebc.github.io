@@ -9,7 +9,7 @@ class ListItem extends Component {
 
   render() {
     return (
-      <li>{this.props.itemsQuery}</li>
+      <li>{this.props.content}</li>
     );
   }
 }

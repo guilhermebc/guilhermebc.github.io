@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import List from '../List/List';
 import ListItem from '../ListItem/ListItem';
 
 const apiKEY = 'AIzaSyD6VsQOvaQ0PGeLPAV4l7Ym1CbNtZmSZOQ';
@@ -10,6 +11,10 @@ class YoutubeAPI extends Component {
 
   constructor(props){
     super(props);
+
+    this.state = {
+      results: []
+    }
   }
 
   onTypedClick(){
@@ -19,11 +24,14 @@ class YoutubeAPI extends Component {
     fetch(requestURL)
       .then((response) => response.json())
       .then((responseJson) => {
-          let result = responseJson.items.map(
-            obj => <ListItem listQuery={"https://www.youtube.com/embed/"+obj.id.videoId}/>
-          );
-          console.log("Result: ", result);
           
+          let result = responseJson.items.map((obj, index) => <ListItem content={"https://www.youtube.com/embed/"+obj.id.videoId} key={index} />);
+
+          this.setState({
+            results: result
+          });
+
+          console.log(this.state.results);
       })
       .catch((error) => {
         console.error(error);
@@ -33,9 +41,8 @@ class YoutubeAPI extends Component {
   render() {
     return (
       <div>
-        {/* onClick={this.onTypedClick(this.state.query)} */}
           <button type="submit" onClick={this.onTypedClick.bind(this)}>Search</button>
-        {/* <ListItem onChange={} /> */}
+          <List list={this.state.results}/>
       </div>
     );
   }

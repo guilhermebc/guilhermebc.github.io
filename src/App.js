@@ -11,7 +11,7 @@ class App extends Component {
       <div className="container">
         <Header title="GB Youtube Search"/>
         <Search/>
-        <List/>
+        
       </div>
     );
   }

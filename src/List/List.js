@@ -5,11 +5,16 @@ import ListItem from '../ListItem/ListItem';
 
 class List extends Component {
 
+  constructor(props){
+    super(props);
+
+  }
+
   render() {
     return (
       <div className="wrapper-list">
 			<ul>
-				<ListItem />
+				{this.props.list}
 			</ul>
 	  </div>
     );
