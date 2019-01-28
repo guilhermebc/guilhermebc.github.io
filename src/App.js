@@ -5,7 +5,7 @@ import './App.css';
 import Header from './Header/Header';
 import Search from './Search/Search';
 
-const apiKEY = 'AIzaSyD6VsQOvaQ0PGeLPAV4l7Ym1CbNtZmSZOQ';
+const apiKEY = 'Your KEY';
 const rootAPI = 'https://www.googleapis.com/youtube/v3/search';
 const numResults = 10;
 
